@@ -4,6 +4,8 @@ import io.restassured.http.ContentType;
 import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.either;
+import static org.hamcrest.Matchers.equalTo;
 
 class MobileBankApiTestV2 {
     @Test
@@ -21,6 +23,7 @@ class MobileBankApiTestV2 {
           // .header("Content-Type", "application/json; charset=UTF-8")
           // специализированные проверки - лучше
           .contentType(ContentType.JSON)
+              .body("[0].currency", either(equalTo("RUB")).or(equalTo("USD")))
       ;
     }
 }
